@@ -242,8 +242,6 @@ function playMove(x, y) {
         changeFav(getComputedStyle(document.documentElement).getPropertyValue(`--${players[turn]}`))
 
         //change player to move h2
-        //let playerCapital = players[turn].charAt(0).toUpperCase() + players[turn].slice(1);
-        //whoTurn.textContent = `${playerCapital} to move`
         whoTurn.textContent = `Turn`
         let playerColor = getComputedStyle(document.documentElement).getPropertyValue(`--${players[turn]}`)
         let whoTurnBefore = document.querySelector("#who_turn_color")
@@ -252,11 +250,6 @@ function playMove(x, y) {
 
         checkPosition();
     }
-}
-
-
-let cir = (i, j, k, m, n) => {
-    return gameArr[i + m][j + n] == k
 }
 
 function checkPosition() {
