@@ -16,7 +16,7 @@
 
 <body>
     <div id="wrapper">
-        <h1>Connect 4</h1>
+        <div id="scoreboard"></div>
         <div id="game_container">
             <div id="game">
 
@@ -25,16 +25,17 @@
         <div id="info_wrapper">
             <div id="who_turn_wrapper">
                 <div id="who_turn_color"></div>
-                <h2 id="who_turn">Red to move</h2>
+                <h2 id="who_turn">Turn</h2>
             </div>
             <div id="fall_wrapper" class="container">
-                <label for="fall"><h2>Fall</h2>
+                <label for="fall">
+                    <h2>Fall</h2>
                     <input type="checkbox" id="fall" name="fall" value="true" checked="checked">
                     <span class="checkmark"></span>
                 </label>
             </div>
             <div id="restart_wrapper">
-                <h2 id="restart">New game</h2>
+                <h2 id="restart">Restart</h2>
             </div>
         </div>
         <div id="slider_container">

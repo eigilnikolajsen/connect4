@@ -27,7 +27,7 @@ body {
 
 #wrapper {
     width: 100%;
-    max-width: calc(800px + 2rem);
+    max-width: calc(600px + 2rem);
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -39,6 +39,37 @@ body {
     display: flex;
     width: 100%;
     border: 0.5rem solid var(--board-color);
+}
+
+#scoreboard {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 0 2rem;
+    flex-wrap: wrap;
+    margin: .5rem 0;
+}
+
+.scoreboard_title_container {
+    flex-basis: 110px;
+    display: flex;
+    justify-content: center;
+}
+
+.scoreboard_color {
+    content: "";
+    height: 2.2ch;
+    width: 2.2ch;
+    border-radius: 50%;
+    margin: .5rem .5rem .5rem 0;
+}
+
+.scoreboard_title {
+    margin: .5rem 0;
+}
+
+#game_container {
+    max-width: 100vh;
 }
 
 #slider_container {
@@ -55,7 +86,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    flex-basis: 170px;
+    flex-basis: 120px;
     flex-grow: 1;
 }
 
@@ -181,20 +212,21 @@ small {
 #info_wrapper {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 0 2rem;
 }
 
 #who_turn_wrapper {
     width: 100%;
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
 }
 
 #who_won_wrapper,
 #restart_wrapper {
     width: 100%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
 }
 
 #who_turn_color,
@@ -210,7 +242,6 @@ small {
 #restart,
 #reset {
     cursor: pointer;
-    margin-left: 2rem;
 }
 
 #restart::after,

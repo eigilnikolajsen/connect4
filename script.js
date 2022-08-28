@@ -22,6 +22,7 @@ let yDefault = 6
 let pDefault = 2
 let cDefault = 4
 let players = ["red", "yellow", "blue", "green"]
+let playersScore = [0, 0, 0, 0]
 let turn = 0
 let won = false
 
@@ -49,6 +50,7 @@ cSlider.oninput = (e) => {
 }
 
 function changeSliderVal(target, val, small, valSpan, defaults) {
+    playersScore = [0, 0, 0, 0]
     if (val != defaults) {
         valSpan.textContent = target.value
         small.textContent = ""
@@ -64,9 +66,10 @@ function buildGame(x, y, p, c) {
 
     //reset values
     won = false
-    turn = 0;
-    let playerCapital = players[0].charAt(0).toUpperCase() + players[0].slice(1);
-    whoTurn.textContent = `${playerCapital} to move`
+    turn >= pVal ? turn = 0 : turn = turn
+        //let playerCapital = players[turn].charAt(0).toUpperCase() + players[turn].slice(1);
+        //whoTurn.textContent = `${playerCapital} to move`
+    whoTurn.textContent = `Turn`
     let playerColor = getComputedStyle(document.documentElement).getPropertyValue(`--${players[turn]}`)
     let whoTurnBefore = document.querySelector("#who_turn_color")
     whoTurnBefore.style.backgroundColor = playerColor
@@ -111,6 +114,27 @@ function buildGame(x, y, p, c) {
 
         game.append(row)
     }
+
+    changeScoreboard()
+}
+
+changeScoreboard = () => {
+    let scoreboard = document.querySelector("#scoreboard")
+    scoreboard.innerHTML = ''
+    for (let i = 0; i < pVal; i++) {
+        let cont = document.createElement("div")
+        cont.classList.add('scoreboard_title_container')
+        let color = document.createElement("div")
+        color.classList.add('scoreboard_color')
+        color.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue(`--${players[i]}`)
+        let title = document.createElement("h2")
+        let playerCapital = players[i].charAt(0).toUpperCase() + players[i].slice(1)
+        title.textContent = `${playerCapital} = ${playersScore[i]}`
+        title.classList.add("scoreboard_title")
+        cont.append(color)
+        cont.append(title)
+        scoreboard.append(cont)
+    }
 }
 
 //build first
@@ -119,6 +143,7 @@ changeFav("#ffffff")
 
 //when click on restart
 document.querySelector("#restart").addEventListener("click", () => {
+    turn != pVal - 1 ? turn++ : turn = 0
     buildGame(xVal, yVal)
 })
 
@@ -207,20 +232,19 @@ function playMove(x, y) {
                 easing: 'easeOutBounce',
             })
         }
-        //console.log(gameArr)
 
 
-
-        //change fav before next turn
-        changeFav(getComputedStyle(document.documentElement).getPropertyValue(`--${players[turn]}`))
 
         //next turn
         turn != pVal - 1 ? turn++ : turn = 0
 
+        //change fav before next turn
+        changeFav(getComputedStyle(document.documentElement).getPropertyValue(`--${players[turn]}`))
 
         //change player to move h2
-        let playerCapital = players[turn].charAt(0).toUpperCase() + players[turn].slice(1);
-        whoTurn.textContent = `${playerCapital} to move`
+        //let playerCapital = players[turn].charAt(0).toUpperCase() + players[turn].slice(1);
+        //whoTurn.textContent = `${playerCapital} to move`
+        whoTurn.textContent = `Turn`
         let playerColor = getComputedStyle(document.documentElement).getPropertyValue(`--${players[turn]}`)
         let whoTurnBefore = document.querySelector("#who_turn_color")
         whoTurnBefore.style.backgroundColor = playerColor
@@ -257,7 +281,6 @@ function checkPosition() {
                     if (gameArr[i][j + l] == k) {
                         pn++
                         if (pn == cVal) {
-                            console.log("won vertical?")
                             youWon("vertical", i + 1, j + 1)
                         }
                     }
@@ -324,8 +347,11 @@ function youWon(direction, a, b) {
 
     let prevTurn
     turn != 0 ? prevTurn = turn - 1 : prevTurn = pVal - 1
-    let playerCapital = players[prevTurn].charAt(0).toUpperCase() + players[prevTurn].slice(1);
-    whoTurn.textContent = `${playerCapital} wins!`
+    playersScore[prevTurn] += 1
+    changeScoreboard()
+        //let playerCapital = players[prevTurn].charAt(0).toUpperCase() + players[prevTurn].slice(1)
+        //whoTurn.textContent = `${playerCapital} wins!`
+    whoTurn.textContent = `wins!`
     let playerColor = getComputedStyle(document.documentElement).getPropertyValue(`--${players[prevTurn]}`)
     let whoTurnBefore = document.querySelector("#who_turn_color")
     whoTurnBefore.style.backgroundColor = playerColor
@@ -350,6 +376,7 @@ function youWon(direction, a, b) {
             document.querySelector(`#game .row:nth-child(${a + i}) .col:nth-child(${b - i}) .marker`).classList.remove("none")
         }
     }
+    turn != pVal - 1 ? turn++ : turn = 0
 }
 
 function youDraw() {
