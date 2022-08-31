@@ -58,11 +58,11 @@ function changeSliderVal(target, val, small, valSpan, defaults) {
         valSpan.textContent = target.value
         small.textContent = "(default)"
     }
-    buildGame(xVal, yVal, pVal, cVal)
+    buildGame(xVal, yVal)
 }
 
 //build game
-function buildGame(x, y, p, c) {
+function buildGame(x, y) {
 
     //reset values
     won = false
@@ -344,7 +344,7 @@ function youWon(direction, a, b) {
     changeScoreboard()
         //let playerCapital = players[prevTurn].charAt(0).toUpperCase() + players[prevTurn].slice(1)
         //whoTurn.textContent = `${playerCapital} wins!`
-    whoTurn.textContent = `wins!`
+    whoTurn.textContent = `Wins!`
     let playerColor = getComputedStyle(document.documentElement).getPropertyValue(`--${players[prevTurn]}`)
     let whoTurnBefore = document.querySelector("#who_turn_color")
     whoTurnBefore.style.backgroundColor = playerColor
@@ -373,7 +373,7 @@ function youWon(direction, a, b) {
 }
 
 function youDraw() {
-    whoTurn.textContent = `It's a draw.`
+    whoTurn.textContent = `draw`
     let whoTurnBefore = document.querySelector("#who_turn_color")
     whoTurnBefore.style.backgroundColor = fill
 }
