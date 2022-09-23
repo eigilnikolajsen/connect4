@@ -172,6 +172,12 @@ game.addEventListener('click', (e) => {
     playMove(target.dataset.x, target.dataset.y)
 }, false);
 
+document.addEventListener("keydown", (event) => {
+    if (parseInt(event.key, 10) != NaN) {
+        playMove(parseInt(event.key, 10) - 1, 0)
+    }
+});
+
 function playMove(x, y) {
     if (won) return
 
