@@ -143,14 +143,14 @@ buildGame(xDefault, yDefault)
 changeFav("#ffffff")
 
 //when click on restart
-document.querySelector("#restart").addEventListener("click", () => {
+const restart = () => {
     turn != pVal - 1 ? turn++ : turn = 0
     buildGame(xVal, yVal)
-})
+}
+document.querySelector("#restart").addEventListener("click", restart)
 
 //when click on fall checkbox
-document.querySelector("#fall").addEventListener("click", () => {
-
+const fall = () => {
     //get content of :root to check if fall is checked or not
     let fall = document.querySelector("#fall_wrapper .checkmark")
     let fallValue = window.getComputedStyle(fall, ':after').getPropertyValue("content")
@@ -164,7 +164,8 @@ document.querySelector("#fall").addEventListener("click", () => {
         document.documentElement.style.setProperty("--display-no-fall", "none");
     }
     buildGame(xVal, yVal)
-})
+}
+document.querySelector("#fall").addEventListener("click", fall)
 
 //play move when clicked on game
 game.addEventListener('click', (e) => {
@@ -174,9 +175,11 @@ game.addEventListener('click', (e) => {
 }, false);
 
 document.addEventListener("keydown", (event) => {
-    if (parseInt(event.key, 10) != NaN) {
+    let keyNum = parseInt(event.key, 10) - 1
+    if (keyNum != NaN && keyNum >= 0 && keyNum < xVal) {
         playMove(parseInt(event.key, 10) - 1, 0)
     }
+    if (event.key == 'r') restart()
 });
 
 function playMove(x, y) {
