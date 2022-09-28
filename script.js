@@ -58,6 +58,7 @@ function changeSliderVal(target, val, small, valSpan, defaults) {
         valSpan.textContent = target.value
         small.textContent = "(default)"
     }
+    changeFav('#ffffff')
     buildGame(xVal, yVal)
 }
 
@@ -401,7 +402,7 @@ function changeFav(col) {
 
         ctx.fillStyle = fill
         ctx.font = 'bold 120px "Lexend Deca"'
-        ctx.fillText('C4', 40, 160)
+        ctx.fillText(`C${cVal}`, 40, 160)
 
         ctx.drawImage(img, 0, 0)
 
@@ -410,5 +411,6 @@ function changeFav(col) {
         link.rel = 'shortcut icon'
         link.href = canvas.toDataURL("image/x-icon")
         document.getElementsByTagName('head')[0].appendChild(link)
+        document.querySelector('title').textContent = `Connect ${cVal}`
     }
 }
